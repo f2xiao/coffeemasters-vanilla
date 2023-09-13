@@ -1,26 +1,29 @@
-async function loadCSS(ele) {
-    const request = await fetch("/components/MenuPage.css");
-    ele.styles.textContent = await request.text();
-}
+
 export default class MenuPage extends HTMLElement {
     constructor() {
         super();
 
-        
         // Implement a Shadow DOM on every Custom Elements
         const shadowRoot = this.attachShadow({ mode: "open" });
+        
+        async function loadCSS() {
+            const request = await fetch("/components/MenuPage.css");
+            styles.textContent = await request.text();
+        }
+
+        const styles = document.createElement('style');
+
+        loadCSS();
+
 
         const template = document.getElementById("menu-page-template");
         const content = template.content.cloneNode(true);
-        this.styles = shadowRoot.appendChild(document.createElement('style'));
+        content.appendChild(styles);
         shadowRoot.appendChild(content);
-
-        
     }
 
     connectedCallback(){
-        // console.log(this);
-        loadCSS(this);
+       console.log(this);
     }
 }
 customElements.define("menu-page", MenuPage);
