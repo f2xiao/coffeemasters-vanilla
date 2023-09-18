@@ -34,7 +34,15 @@ export default class MenuPage extends HTMLElement {
                     </ul>`;
                 this.root.querySelector("#menu").appendChild(liCategory);
     
-                // TODO: placeholder
+                // create the products for each category
+                const products = category.products;
+                if (products.length) {
+                    products.forEach(product => {
+                        const liProduct = document.createElement("product-item");
+                        liProduct.dataset.product = JSON.stringify(product);
+                        liCategory.querySelector(".category").appendChild(liProduct);
+                    });
+                }
 
             }  
         } else {
